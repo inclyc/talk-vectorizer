@@ -1,6 +1,7 @@
 \documentclass[aspectratio=169]{ctexbeamer}
 % \setbeamertemplate{bibliography item}{\insertbiblabel}
 \usepackage{booktabs}
+\usepackage{listings}
 \usetheme{Madrid}
 
 \title{Auto-Vectorization \& SIMD in LLVM}
@@ -8,7 +9,7 @@
 
 \input{section_pages.tex}
 \input{tuna_color.tex}
-
+\input{../lst_style.tex}
 \author{Y.C. Long}
 
 
@@ -145,6 +146,34 @@
 
     IA-32指令集已经从最开始的80多条指令增长到了现在的1400多条。SSE, AVX, 各种
     SIMD扩展和宽寄存器让指令集变得越来越复杂。
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Vector vs SIMD}
+
+    向量机与SIMD的真正区别在于，向量长度是否在机器码层面确定。
+
+    \begin{lstlisting}
+void *memcpy_vec(void *dst, void *src, size_t n) {
+    void *save = dst;
+    // copy data byte by byte
+    for (size_t vl; n > 0; n -= vl, src += vl, dst += vl) {
+        vl = vsetvl_e8m8(n);
+        vuint8m8_t vec_src = vle8_v_u8m8(src, vl);
+        vse8_v_u8m8(dst, vec_src, vl);
+    }
+    return save;
+}
+    \end{lstlisting}
+
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Auto-Vectorizer}
+
+
+
 \end{frame}
 
 \end{document}
