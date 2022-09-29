@@ -19,5 +19,89 @@
     \maketitle
 \end{frame}
 
+\begin{frame}
+    \frametitle{Table of Contents}
+
+    \tableofcontents
+
+\end{frame}
+
+\section{Moore定律的终结和并行化的需求}
+
+\begin{frame}
+    \frametitle{Moore's Law to be over}
+
+    集成电路上可容纳的晶体管数目，约每隔两年便会增加一倍
+
+    \begin{figure}[h]
+        \includegraphics[height=0.5\textheight]{images/moore.jpeg}
+        \caption{Moore's Law}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parallel}
+
+    提高计算机性能的方法，是并行化。
+
+    \begin{figure}[h]
+        \includegraphics[height=0.5\textheight]{images/dual_core.png}
+        \caption{Dual Core Cache Design}
+    \end{figure}
+
+\end{frame}
+
+\section{并行的手段}
+
+\subsection{Multi-Core}
+
+\begin{frame}
+    \frametitle{Multi-Core}
+
+    为了实现并行化，我们可以给一个计算机加入多个核心。
+
+    \begin{itemize}
+        \item 不同的寄存器
+        \item 不同的中断处理请求
+        \item 操作系统-对称多处理(SMP)调度
+    \end{itemize}
+
+    \begin{figure}[h]
+        \includegraphics[height=0.45\textheight]{images/smp.png}
+        \caption{Symmetric multiprocessing}
+    \end{figure}
+
+\end{frame}
+
+\subsection{Single-Core}
+
+\begin{frame}
+    \frametitle{Single-Core - Out-of-Order Execution}
+
+    乱序执行(Out-of-Order Execution)是现代CPU最基本的一个并行手段。
+
+    % TODO: 展示乱序执行的例子
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Single-Core - SIMD}
+
+    OoOE在编程上由编译器全局指令调度器(Instruction Scheduler)优化。
+
+    单指令流多数据流(Single instruction, multiple data (SIMD))，提供了一种让我
+    们更好地进行向量计算的方式。
+
+    % TODO: SIMD graph
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{SIMD - Videos \& Games}
+
+    % TODO: SIMD 在游戏、视频中的应用
+
+\end{frame}
 
 \end{document}
