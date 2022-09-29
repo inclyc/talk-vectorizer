@@ -98,10 +98,53 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{SIMD - Videos \& Games}
+    \frametitle{Benefits of SIMD}
 
-    % TODO: SIMD 在游戏、视频中的应用
+    通常情况下我们很难将串行代码转化为并行，为了设计并行算法通常需要改变原有的
+    逻辑。
 
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/rgba.png}
+        \caption{RGBA}
+    \end{figure}
+
+    如图所示，在图形学中我们经常需要计算图像的颜色信息，而颜色在RGBA几个维度下
+    的计算是可以向量化的。
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{GPGPU}
+
+    显卡(GPU)包含大量的核心来支持高度并行化的计算，最开始的在显卡上的编程是很困
+    难的，随着时代的发展显卡的计算能力越来越不容小觑，通用计算显卡(GPGPU)也开始
+    包含在编译优化的领域。如何把科研大佬写的模型，放到真正的显卡上执行？
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[height=0.5\textheight]{images/torch-mlir.png}
+        \caption{Torch-MLIR}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Problem With SIMD Instructions}
+
+    \begin{block}{RISC-V Designers}
+        \textit{SIMD Instructions considered harmful. -- David Patterson}
+    \end{block}
+
+    一开始，SIMD被认为是实现并行化简单有效的方法。我们将64位寄存器和ALU划分为许
+    多8, 16, 32位的块，然后并行地计算它们。用每条指令的操作码(opcode)提供数据宽
+    度和操作。
+
+    \textbf{指令集膨胀}
+
+    IA-32指令集已经从最开始的80多条指令增长到了现在的1400多条。SSE, AVX, 各种
+    SIMD扩展和宽寄存器让指令集变得越来越复杂。
 \end{frame}
 
 \end{document}
