@@ -2,6 +2,8 @@
 % \setbeamertemplate{bibliography item}{\insertbiblabel}
 \usepackage{booktabs}
 \usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
 \usetheme{Madrid}
 
 \title{Auto-Vectorization \& SIMD in LLVM}
@@ -10,6 +12,7 @@
 \input{section_pages.tex}
 \input{tuna_color.tex}
 \input{../lst_style.tex}
+\input{../lst_riscv.tex}
 \author{Y.C. Long}
 
 
@@ -77,12 +80,35 @@
 
 \subsection{Single-Core}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Single-Core - Out-of-Order Execution}
 
     乱序执行(Out-of-Order Execution)是现代CPU最基本的一个并行手段。
+    \begin{minipage}[t]{0.45\linewidth}
+        \begin{lstlisting}[language=C++]
+int test(int &a,
+         int &b,
+         int &c,
+         int &d) {
+    a += b;
+    c += d;
+    return 0;
+}
+        \end{lstlisting}
+    \end{minipage}
+    \begin{minipage}[t]{0.45\linewidth}
+        \begin{lstlisting}[language={[RISC-V]Assembler}]
+    lw      a1, 0(a1)
+    lw      a4, 0(a0)
+    addw    a1, a1, a4
+    sw      a1, 0(a0)
+    lw      a0, 0(a3)
+    lw      a1, 0(a2)
+    addw    a0, a0, a1
+    sw      a0, 0(a2)
+        \end{lstlisting}
+    \end{minipage}
 
-    % TODO: 展示乱序执行的例子
 
 \end{frame}
 
@@ -94,7 +120,11 @@
     单指令流多数据流(Single instruction, multiple data (SIMD))，提供了一种让我
     们更好地进行向量计算的方式。
 
-    % TODO: SIMD graph
+    \begin{figure}
+        \centering
+        \includegraphics[height=0.5\textheight]{images/SIMD2.svg.png}
+        \caption{SIMD}
+    \end{figure}
 
 \end{frame}
 
@@ -169,8 +199,10 @@ void *memcpy_vec(void *dst, void *src, size_t n) {
 
 \end{frame}
 
+\section{Auto-Vectorization}
+
 \begin{frame}
-    \frametitle{Auto-Vectorizer}
+    \frametitle{Auto-Vectorization}
 
 
 
