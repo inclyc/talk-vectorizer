@@ -201,9 +201,20 @@ void *memcpy_vec(void *dst, void *src, size_t n) {
 
 \section{Auto-Vectorization}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Auto-Vectorization}
 
+    标量代码可以被自动向量化成含向量计算的代码。
+
+    事实上，大量的标量循环都可以被向量化
+
+    \begin{lstlisting}
+void add(int * restrict A, int * restrict B, int n){
+    for(int i = 0;i < n;i++){
+        A[i] += B[i];
+    }
+}
+    \end{lstlisting}
 
 
 \end{frame}
