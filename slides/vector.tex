@@ -219,4 +219,33 @@ void add(int * restrict A, int * restrict B, int n){
 
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{合法性}
+
+    数据依赖 \& Overlap (Alias Analysis)
+
+    \begin{lstlisting}
+for (int i = 0; i < N; i += 1) {
+    a[i+1] = b[i] + 1;  // S1
+    b[i+1] = a[i] + 1;  // S2
+}
+    \end{lstlisting}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/overlap.png}
+        \caption{Example of pointer overlapping}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{收益}
+
+    必然导致的程序大小增加 / 标量循环和向量循环的选择和跳转
+
+    数据对齐的代价，尾循环的代价，都是需要考虑的因素。
+
+\end{frame}
+
 \end{document}
