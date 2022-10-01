@@ -9,9 +9,12 @@
             add, addi, sub, lui, auipc,
             xor, xori, or, ori, and, andi,
             slt, slti, sltu, sltiu,
-            beq, bne, blt, bge, bltu, bgeu,
+            beq, bne, blt, bge, bltu, bgeu, bnez,
             j, jr, jal, jalr, ret,
-            scall, break, nop
+            scall, break, nop,
+            vsetvli,
+            vle8.v,
+            vse8.v
         },
     morekeywords=[2]{ % sections of our code and other directives
             .align, .ascii, .asciiz, .byte, .data, .double, .extern,
